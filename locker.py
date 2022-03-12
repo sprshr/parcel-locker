@@ -9,6 +9,6 @@ class Locker:
     def drop_off(self, courierCode):
         for key in self.couriers:
             if self.couriers[key] == courierCode:
-                break
                 return key
+                break
         else: return False
