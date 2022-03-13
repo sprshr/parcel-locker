@@ -1,9 +1,9 @@
 import csv
 class Locker:
     couriers = {
-        "FedEx" : 1,
-        "UPS" : 2,
-        "USPS" : 3
+        "FedEx" : 11111,
+        "UPS" : 22222,
+        "USPS" : 33333
     }
     def is_drop_off(self, courierCode):
         for key in self.couriers:
@@ -12,5 +12,5 @@ class Locker:
                 return True
         else: return False
     
-    def drop_off(self, recepient):
+    def drop_off(self, first, last, address, zipCode):
         pass
