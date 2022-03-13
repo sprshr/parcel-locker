@@ -1,3 +1,4 @@
 .replit
 .breakpoints
 __pycache__/
+.vscode/
