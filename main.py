@@ -11,6 +11,7 @@ asciiArt = r"""
                                                                                          
 """
 entryCodeError = "\nPlease enter your 5 digit specified code.\nCouriers! Enter your assigned code to drop off packages."
+zipCodeError = "\nPlease enter a valid 5 digit zip Code"
 
 print(asciiArt)
 print("Parcel Locker\n")
@@ -30,5 +31,5 @@ if parcel.is_drop_off(entryCode):
     print("Enter apartment number if aplicable")
     streetAddress = input()
     print("\nPlease enter the recepient's 5-digit zip code")
-    zipCode = input()
+    zipCode = Input.numeric()
     parcel.drop_off(firstName, lastName, streetAddress, zipCode)
