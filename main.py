@@ -1,4 +1,5 @@
 from locker import *
+from input import Input
 asciiArt = r"""
   _____                                 _     _                       _
  |  __ \                               | |   | |                     | |                 
@@ -9,16 +10,25 @@ asciiArt = r"""
                                                                                          
                                                                                          
 """
+entryCodeError = "\nPlease enter your 5 digit specified code.\nCouriers! Enter your assigned code to drop off packages."
 
 print(asciiArt)
 print("Parcel Locker\n")
 print("Please enter your code\n")
 print("Couriers! Enter your assigned code to drop off packages\n")
-entry_code = int(input())
+entryCode = Input.numeric(entryCodeError, 5, 5)
 
 #returns if package is to be dropped off
 parcel = Locker()
-if parcel.is_drop_off(entry_code):
+if parcel.is_drop_off(entryCode):
     print(f"Hello {parcel.courier}!\n")
-    print("Please enter the recepient name:\n")
-    recepientName = input()
+    print("Please enter the recepient's first name:")
+    firstName = input()
+    print("\nPlease enter the recepient's last name:")
+    lastName = input()
+    print("\nPlease enter the recepient's street address")
+    print("Enter apartment number if aplicable")
+    streetAddress = input()
+    print("\nPlease enter the recepient's 5-digit zip code")
+    zipCode = input()
+    parcel.drop_off(firstName, lastName, streetAddress, zipCode)
