@@ -2,3 +2,4 @@
 .breakpoints
 __pycache__/
 .vscode/
+locker_log.db
