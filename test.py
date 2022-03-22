@@ -36,7 +36,7 @@ class TestLocker(unittest.TestCase):
         del self.ups
         del self.usps
         del self.wrongParcel
-        #os.remove("locker_log.db")
+        os.remove("locker_log.db")
 
 
 if __name__ == "__main__":
