@@ -33,3 +33,7 @@ if parcel.is_drop_off(entryCode):
     print("\nPlease enter the recipient's 5-digit zip code")
     zipCode = Input.numeric()
     parcel.drop_off(firstName, lastName, streetAddress, zipCode)
+
+else: 
+    #pickup instructions goes here
+    pass
