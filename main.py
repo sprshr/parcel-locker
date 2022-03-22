@@ -35,5 +35,5 @@ if parcel.is_drop_off(entryCode):
     parcel.drop_off(firstName, lastName, streetAddress, zipCode)
 
 else: 
-    #pickup instructions goes here
+    #pickup instructions go here
     pass
