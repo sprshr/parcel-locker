@@ -1,30 +1,27 @@
 import sqlite3 as sq
 
-databasePath = 'locker_log.db'
-
 
 class Locker:
     couriers = {"FedEx": 11111, "UPS": 22222, "USPS": 33333}
     exists = False
-    #create database table
-    @classmethod
-    def create(self):
+    databasePath = 'locker_log.db'
+
+    def __init__(self):
+        self.conn = sq.connect(Locker.databasePath)
+        self.cursor = self.conn.cursor()
         try:
-            self.conn = sq.connect(databasePath)
-            self.cursor = self.conn.cursor()
-            self.cursor.execute("""CREATE TABLE locker_log(
-                               firstName text,
-                               lastName text,
-                               address text,
-                               zipCode int,
-                               pickUpCode int,
-                               item text
-            )""")
+            self.cursor.execute('''CREATE TABLE locker_log(
+                           firstName TEXT,
+                           lastName TEXT,
+                           streetAddress TEXT,
+                           zipCode INTEGER,
+                           courier TEXT,
+                           item TEXT
+                           
+            )''')
         except sq.Error:
-            #exists is for testing purposes
-            Locker.exists = True
-        finally:
-            Locker.exists = True
+            pass
+        self.conn.commit()
 
     def is_drop_off(self, courierCode):
         for key in self.couriers:
@@ -34,5 +31,12 @@ class Locker:
         else:
             return False
 
-    def drop_off(self, first, last, address, zipCode):
-        pass
+    def drop_off(self, first, last, address, zipCode, item):
+        with self.conn:
+            self.cursor.execute(
+                f"INSERT INTO locker_log VALUES( '{first}', '{last}', '{address}', {zipCode}, '{self.courier}', '{item}')"
+            )
+        # with self.conn:
+        #     self.cursor.execute("SELECT * FROM locker_log")
+        #     print(self.cursor.fetchall())
+        # self.conn.close()
