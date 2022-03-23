@@ -31,8 +31,11 @@ if parcel.is_drop_off(entryCode):
     print("Enter apartment number if aplicable")
     streetAddress = input()
     print("\nPlease enter the recipient's 5-digit zip code")
-    zipCode = Input.numeric()
-    parcel.drop_off(firstName, lastName, streetAddress, zipCode)
+    zipCode = Input.numeric(zipCodeError, 5, 5)
+    print("\nPlease place the package in the locker")
+    print("Enter a text as a package. It's just a simulation")
+    package = input()
+    parcel.drop_off(firstName, lastName, streetAddress, zipCode, package)
 
 else: 
     #pickup instructions go here

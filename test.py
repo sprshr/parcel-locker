@@ -13,11 +13,9 @@ class TestLocker(unittest.TestCase):
         self.usps = Locker()
         self.wrongParcel = Locker()
         try:
-            os.remove('locker_log.db')
+            os.remove(Locker.databasePath)
         except FileNotFoundError:
             pass
-        Locker.create()
-
     def test_is_drop_off(self):
         self.assertTrue(self.fedex.is_drop_off(11111))
         self.assertEqual(self.fedex.courier, "FedEx")
@@ -27,16 +25,21 @@ class TestLocker(unittest.TestCase):
         self.assertEqual(self.usps.courier, "USPS")
         self.assertFalse(self.wrongParcel.is_drop_off(343654))
 
-    def test_create(self):
-        self.assertTrue(Locker.exists)
-        self.assertTrue(os.path.isfile('locker_log.db'))
+    def test_drop_off(self):
+        self.fedex.is_drop_off(11111)
+        self.fedex.drop_off("Sepehr", "Sahraian", "62 Clver Dr.", 92612, "This is the package")
+        self.ups.is_drop_off(22222)
+        self.ups.drop_off("Sepehr", "Sahraian", "62 Clver Dr.", 92612, "This is the package")
+        self.usps.is_drop_off(33333)
+        self.usps.drop_off("Sepehr", "Sahraian", "62 Clver Dr.", 92612, "This is the package")
+        self.assertTrue(os.path.isfile(Locker.databasePath))
 
     def tearDown(self):
         del self.fedex
         del self.ups
         del self.usps
         del self.wrongParcel
-        os.remove("locker_log.db")
+        os.remove(Locker.databasePath)
 
 
 if __name__ == "__main__":
