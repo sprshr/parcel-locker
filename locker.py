@@ -1,5 +1,6 @@
 import sqlite3 as sq
 import datetime
+from random import randint
 
 class Locker:
     couriers = {"FedEx": 11111, "UPS": 22222, "USPS": 33333}
@@ -18,6 +19,7 @@ class Locker:
                            courier TEXT,
                            dateDroppedOff TEXT,
                            timeDroppedOff TEXT,
+                           pickUpCode TEXT,
                            item TEXT
                            
             )''')
@@ -38,6 +40,11 @@ class Locker:
         dt = datetime.datetime.now()
         dateDroppedOff = dt.strftime("%A, %B %d, %Y")
         timeDroppedOff = dt.strftime("%I:%M %p")
+        digit = 0
+        pickUpCode = ""
+        while digit < 5:
+            pickUpCode += str(randint(0,9))
+            digit += 1
         with self.conn:
             self.cursor.execute(f"""INSERT INTO locker_log VALUES(
                     '{first}',
@@ -47,9 +54,10 @@ class Locker:
                     '{self.courier}',
                     '{dateDroppedOff}',
                     '{timeDroppedOff}',
+                    '{pickUpCode}',
                     '{item}'
                     )""")
-        # with self.conn:
-        #     self.cursor.execute("SELECT * FROM locker_log")
-        #     print(self.cursor.fetchall())
-        # self.conn.close()
+        with self.conn:
+            self.cursor.execute("SELECT * FROM locker_log")
+            print(self.cursor.fetchall())
+        self.conn.close()
