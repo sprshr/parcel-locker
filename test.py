@@ -8,14 +8,14 @@ from locker import Locker
 
 class TestLocker(unittest.TestCase):
     def setUp(self):
-        self.fedex = Locker()
-        self.ups = Locker()
-        self.usps = Locker()
-        self.wrongParcel = Locker()
         try:
             os.remove(Locker.databasePath)
         except FileNotFoundError:
             pass
+        self.fedex = Locker()
+        self.ups = Locker()
+        self.usps = Locker()
+        self.wrongParcel = Locker()
     def test_is_drop_off(self):
         self.assertTrue(self.fedex.is_drop_off(11111))
         self.assertEqual(self.fedex.courier, "FedEx")
