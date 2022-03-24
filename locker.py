@@ -1,5 +1,5 @@
 import sqlite3 as sq
-
+import datetime
 
 class Locker:
     couriers = {"FedEx": 11111, "UPS": 22222, "USPS": 33333}
@@ -14,8 +14,10 @@ class Locker:
                            firstName TEXT,
                            lastName TEXT,
                            streetAddress TEXT,
-                           zipCode INTEGER,
+                           zipCode TEXT,
                            courier TEXT,
+                           dateDroppedOff TEXT,
+                           timeDroppedOff TEXT,
                            item TEXT
                            
             )''')
@@ -32,10 +34,21 @@ class Locker:
             return False
 
     def drop_off(self, first, last, address, zipCode, item):
+        zipCode = str(zipCode)
+        dt = datetime.datetime.now()
+        dateDroppedOff = dt.strftime("%A, %B %d, %Y")
+        timeDroppedOff = dt.strftime("%I:%M %p")
         with self.conn:
-            self.cursor.execute(
-                f"INSERT INTO locker_log VALUES( '{first}', '{last}', '{address}', {zipCode}, '{self.courier}', '{item}')"
-            )
+            self.cursor.execute(f"""INSERT INTO locker_log VALUES(
+                    '{first}',
+                    '{last}',
+                    '{address}',
+                    '{zipCode}',
+                    '{self.courier}',
+                    '{dateDroppedOff}',
+                    '{timeDroppedOff}',
+                    '{item}'
+                    )""")
         # with self.conn:
         #     self.cursor.execute("SELECT * FROM locker_log")
         #     print(self.cursor.fetchall())
