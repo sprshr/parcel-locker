@@ -44,4 +44,8 @@ if parcel.is_drop_off(entryCode):
     print(pickUpCode)
 
 else: 
-    parcel.pick_up(entryCode)
+    package = parcel.pick_up(entryCode)
+    print(f"\nPackage for {package['firstName']} {package['lastName']}")
+    print(f"Package dropped off by {package['courier']} on {package['dateDroppedOff']} at {package['timeDroppedOff']}")
+    print("Please pick Up your package from the locker")
+    print(f"\n{package['item']}")
