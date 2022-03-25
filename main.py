@@ -1,3 +1,7 @@
+#Default courier codes
+#Fedex : 11111
+#UPS : 22222
+#USPS : 33333
 from locker import *
 from input import Input
 asciiArt = r"""
@@ -40,5 +44,4 @@ if parcel.is_drop_off(entryCode):
     print(pickUpCode)
 
 else: 
-    #pickup instructions go here
-    pass
+    parcel.pick_up(entryCode)
