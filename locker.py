@@ -2,10 +2,14 @@ import sqlite3 as sq
 import datetime
 from random import randint
 
+
 class Locker:
     couriers = {"FedEx": 11111, "UPS": 22222, "USPS": 33333}
     exists = False
     databasePath = 'locker_log.db'
+    columnHeaders = ("firstName", "lastName", "streetAddress", "zipCode",
+                     "Courier", "dateDroppedOff", "timeDroppedOff",
+                     "pickUpCode", "item")
 
     def __init__(self):
         self.conn = sq.connect(Locker.databasePath)
@@ -43,7 +47,7 @@ class Locker:
         digit = 0
         pickUpCode = ""
         while digit < 5:
-            pickUpCode += str(randint(0,9))
+            pickUpCode += str(randint(0, 9))
             digit += 1
         with self.conn:
             self.cursor.execute(f"""INSERT INTO locker_log VALUES(
@@ -62,3 +66,15 @@ class Locker:
         #     print(self.cursor.fetchall())
         self.conn.close()
         return pickUpCode
+
+    def pick_up(self, pickUpCode):
+        pickUpCode = str(pickUpCode)
+        with self.conn:
+            self.cursor.execute(f"SELECT * FROM locker_log WHERE pickUpCode = {pickUpCode}")
+            results = self.cursor.fetchone()
+        dictResults = {}
+        index = 0
+        for header in Locker.columnHeaders:
+            dictResults[header] = results[index]
+            index += 1
+        #print(dictResults)
