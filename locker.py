@@ -8,7 +8,7 @@ class Locker:
     exists = False
     databasePath = 'locker_log.db'
     columnHeaders = ("firstName", "lastName", "streetAddress", "zipCode",
-                     "Courier", "dateDroppedOff", "timeDroppedOff",
+                     "courier", "dateDroppedOff", "timeDroppedOff",
                      "pickUpCode", "item")
 
     def __init__(self):
@@ -77,4 +77,4 @@ class Locker:
         for header in Locker.columnHeaders:
             dictResults[header] = results[index]
             index += 1
-        #print(dictResults)
+        return dictResults
