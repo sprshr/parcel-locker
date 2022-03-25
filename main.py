@@ -35,7 +35,9 @@ if parcel.is_drop_off(entryCode):
     print("\nPlease place the package in the locker")
     print("Enter a text as a package. It's just a simulation")
     package = input()
-    parcel.drop_off(firstName, lastName, streetAddress, zipCode, package)
+    pickUpCode = parcel.drop_off(firstName, lastName, streetAddress, zipCode, package)
+    print("\nThe recipient will need the code below to to pickup the package.")
+    print(pickUpCode)
 
 else: 
     #pickup instructions go here

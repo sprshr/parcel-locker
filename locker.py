@@ -38,7 +38,7 @@ class Locker:
     def drop_off(self, first, last, address, zipCode, item):
         zipCode = str(zipCode)
         dt = datetime.datetime.now()
-        dateDroppedOff = dt.strftime("%A, %B %d, %Y")
+        dateDroppedOff = dt.strftime("%A %B %d, %Y")
         timeDroppedOff = dt.strftime("%I:%M %p")
         digit = 0
         pickUpCode = ""
@@ -57,7 +57,8 @@ class Locker:
                     '{pickUpCode}',
                     '{item}'
                     )""")
-        with self.conn:
-            self.cursor.execute("SELECT * FROM locker_log")
-            print(self.cursor.fetchall())
+        # with self.conn:
+        #     self.cursor.execute("SELECT * FROM locker_log")
+        #     print(self.cursor.fetchall())
         self.conn.close()
+        return pickUpCode
