@@ -51,4 +51,4 @@ else:
         print("Please pick Up your package from the locker")
         print(f"\n{package['item']}")
     elif package['pickedUp'] == 'True':
-        print("\nThe package has already been picked up.")
+        print(f"\nThe package has already been picked up on {package['datePickedUp']} at {package['timePickedUp']}.\n")
