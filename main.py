@@ -2,7 +2,7 @@
 #Fedex : 11111
 #UPS : 22222
 #USPS : 33333
-from locker import *
+from locker import Locker
 from input import Input
 
 asciiArt = r"""
@@ -46,12 +46,20 @@ while True:
         print("\nThe recipient will need the code below to to pickup the package.\n")
         print(pickUpCode)
         print("\nThank you for using Parcel Locker!")
+        print("\nPress enter to return to Parcel Locker")
+        input()
     else: 
         package = parcel.pick_up(entryCode)
         if package['pickedUp'] == 'False':
             print(f"\nPackage for {package['firstName']} {package['lastName']}")
             print(f"Package dropped off by {package['courier']} on {package['dateDroppedOff']} at {package['timeDroppedOff']}")
             print("Please pick Up your package from the locker")
-            print(f"\n{package['item']}\n")
+            print(f"\n{package['item']}")
+            print("\nThank you for using Parcel Locker!")
+            print("\nPress enter to return to Parcel Locker")
+            input()
         else:
-            print(f"\nThe package has already been picked up on {package['datePickedUp']} at {package['timePickedUp']}.\n")
+            print(f"\nThe package has already been picked up on {package['datePickedUp']} at {package['timePickedUp']}.")
+            print("Thank you!")
+            print("\nPress enter to return to the Parcel Locker")
+            input()
