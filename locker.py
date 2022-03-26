@@ -8,25 +8,24 @@ class Locker:
     exists = False
     databasePath = 'locker_log.db'
     columnHeaders = ("firstName", "lastName", "streetAddress", "zipCode",
-                     "courier", "dateDroppedOff", "timeDroppedOff",
-                     "pickUpCode", "item","pickedUp")
+                        "courier", "dateDroppedOff", "timeDroppedOff",
+                        "pickUpCode", "item","pickedUp")
 
     def __init__(self):
         self.conn = sq.connect(Locker.databasePath)
         self.cursor = self.conn.cursor()
         try:
             self.cursor.execute('''CREATE TABLE locker_log(
-                           firstName TEXT,
-                           lastName TEXT,
-                           streetAddress TEXT,
-                           zipCode TEXT,
-                           courier TEXT,
-                           dateDroppedOff TEXT,
-                           timeDroppedOff TEXT,
-                           pickUpCode TEXT,
-                           item TEXT,
-                           pickedUp TEXT
-                           
+                            firstName TEXT,
+                            lastName TEXT,
+                            streetAddress TEXT,
+                            zipCode TEXT,
+                            courier TEXT,
+                            dateDroppedOff TEXT,
+                            timeDroppedOff TEXT,
+                            pickUpCode TEXT,
+                            item TEXT,
+                            pickedUp TEXT,
             )''')
         except sq.Error:
             pass
