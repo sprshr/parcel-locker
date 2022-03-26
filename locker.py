@@ -9,7 +9,7 @@ class Locker:
     databasePath = 'locker_log.db'
     columnHeaders = ("firstName", "lastName", "streetAddress", "zipCode",
                      "courier", "dateDroppedOff", "timeDroppedOff",
-                     "pickUpCode", "item")
+                     "pickUpCode", "item","pickedUp")
 
     def __init__(self):
         self.conn = sq.connect(Locker.databasePath)
@@ -24,7 +24,8 @@ class Locker:
                            dateDroppedOff TEXT,
                            timeDroppedOff TEXT,
                            pickUpCode TEXT,
-                           item TEXT
+                           item TEXT,
+                           pickedUp TEXT
                            
             )''')
         except sq.Error:
@@ -59,7 +60,8 @@ class Locker:
                     '{dateDroppedOff}',
                     '{timeDroppedOff}',
                     '{pickUpCode}',
-                    '{item}'
+                    '{item}',
+                    'False'
                     )""")
         # with self.conn:
         #     self.cursor.execute("SELECT * FROM locker_log")
@@ -70,11 +72,13 @@ class Locker:
     def pick_up(self, pickUpCode):
         pickUpCode = str(pickUpCode)
         with self.conn:
+            self.cursor.execute(f"UPDATE locker_log SET pickedUp = 'True' WHERE pickUpCode = {pickUpCode}")   
+        with self.conn:
             self.cursor.execute(f"SELECT * FROM locker_log WHERE pickUpCode = {pickUpCode}")
             results = self.cursor.fetchone()
         dictResults = {}
         index = 0
         for header in Locker.columnHeaders:
             dictResults[header] = results[index]
-            index += 1
+            index += 1 
         return dictResults
