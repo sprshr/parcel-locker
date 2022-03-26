@@ -3,3 +3,4 @@
 __pycache__/
 .vscode/
 locker_log.db
+-- SQLite.sql
