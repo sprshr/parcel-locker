@@ -12,3 +12,11 @@ class Input:
         elif maxDigit != None and len(str(value)) > maxDigit:
             print(errorMessage)
         else: return value
+
+    @classmethod
+    def text(cls, errorMessage:str):
+        while True: 
+            value = input()
+            if len(value) <= 0:
+                print(errorMessage)
+            else: return value
