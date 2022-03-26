@@ -12,12 +12,12 @@ class Locker:
                         "pickUpCode", "item", "pickedUp", "datePickedUp", "timePickedUp")
 
     @classmethod
-    def get_date(self):
+    def get_date(cls):
         dt = datetime.datetime.now()
         return dt.strftime("%A %B %d, %Y")
 
     @classmethod
-    def get_time(self):
+    def get_time(cls):
         dt = datetime.datetime.now()
         return dt.strftime("%I:%M %p")
 
