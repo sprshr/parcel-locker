@@ -45,7 +45,10 @@ if parcel.is_drop_off(entryCode):
 
 else: 
     package = parcel.pick_up(entryCode)
-    print(f"\nPackage for {package['firstName']} {package['lastName']}")
-    print(f"Package dropped off by {package['courier']} on {package['dateDroppedOff']} at {package['timeDroppedOff']}")
-    print("Please pick Up your package from the locker")
-    print(f"\n{package['item']}")
+    if package['pickedUp'] == 'False':
+        print(f"\nPackage for {package['firstName']} {package['lastName']}")
+        print(f"Package dropped off by {package['courier']} on {package['dateDroppedOff']} at {package['timeDroppedOff']}")
+        print("Please pick Up your package from the locker")
+        print(f"\n{package['item']}")
+    elif package['pickedUp'] == 'True':
+        print("\nThe package has already been picked up.")
