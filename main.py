@@ -17,7 +17,7 @@ asciiArt = r"""
 """
 entryCodeError = "\nPlease enter your 5 digit specified code:\nCouriers! Enter your assigned code to drop off packages"
 zipCodeError = "\nPlease enter a valid 5 digit zip Code:"
-blankError = "{} cannot be blank."
+blankError = "{} cannot be blank.\nPlease enter a valid {}:"
 packageTextError = "Please enter a text representing the package:"
 
 while True:
@@ -31,12 +31,12 @@ while True:
     if parcel.is_drop_off(entryCode):
         print(f"Hello {parcel.courier}!\n")
         print("Please enter the recipient's first name:")
-        firstName = Input.text(blankError.format("First name"))
+        firstName = Input.text(blankError.format("First name", "first name"))
         print("\nPlease enter the recipient's last name:")
-        lastName = Input.text(blankError.format("Last name"))
+        lastName = Input.text(blankError.format("Last name", "last name"))
         print("\nPlease enter the recipient's street address:")
         print("Enter apartment number if aplicable")
-        streetAddress = Input.text(blankError.format("Street Address"))
+        streetAddress = Input.text(blankError.format("Street Address", "street address"))
         print("\nPlease enter the recipient's 5-digit zip code:")
         zipCode = Input.numeric(zipCodeError, 5, 5)
         print("\nPlease place the package in the locker")
