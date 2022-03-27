@@ -50,7 +50,7 @@ while True:
         input()
     else: 
         package = parcel.pick_up(entryCode)
-        if package['pickedUp'] == 'False':
+        if package != False and package['pickedUp'] == 'False':
             print(f"\nPackage for {package['firstName']} {package['lastName']}")
             print(f"Package dropped off by {package['courier']} on {package['dateDroppedOff']} at {package['timeDroppedOff']}")
             print("Please pick Up your package from the locker")
@@ -58,8 +58,13 @@ while True:
             print("\nThank you for using Parcel Locker!")
             print("\nPress enter to return to Parcel Locker")
             input()
-        else:
+        elif package != False and package['pickedUp'] == 'True':
             print(f"\nThe package has already been picked up on {package['datePickedUp']} at {package['timePickedUp']}.")
             print("Thank you!")
+            print("\nPress enter to return to the Parcel Locker")
+            input()
+        else:
+            print(f"\nThere is no match for the code {entryCode}")
+            print("Please try again.")
             print("\nPress enter to return to the Parcel Locker")
             input()
