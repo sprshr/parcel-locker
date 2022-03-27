@@ -15,16 +15,16 @@ asciiArt = r"""
                                                                                          
                                                                                          
 """
-entryCodeError = "\nPlease enter your 5 digit specified code.\nCouriers! Enter your assigned code to drop off packages."
-zipCodeError = "\nPlease enter a valid 5 digit zip Code."
+entryCodeError = "\nPlease enter your 5 digit specified code:\nCouriers! Enter your assigned code to drop off packages"
+zipCodeError = "\nPlease enter a valid 5 digit zip Code:"
 blankError = "{} cannot be blank."
-packageTextError = "Please enter a text representing the package."
+packageTextError = "Please enter a text representing the package:"
 
 while True:
     print(asciiArt)
-    print("Parcel Locker\n")
-    print("Please enter your code\n")
-    print("Couriers! Enter your assigned code to drop off packages\n")
+    print("Parcel Locker")
+    print("\nPlease enter your code:")
+    print("\nCouriers! Enter your assigned code to drop off packages\n")
     entryCode = Input.numeric(entryCodeError, 5, 5)
     #returns if package is to be dropped off
     parcel = Locker()
@@ -34,13 +34,13 @@ while True:
         firstName = Input.text(blankError.format("First name"))
         print("\nPlease enter the recipient's last name:")
         lastName = Input.text(blankError.format("Last name"))
-        print("\nPlease enter the recipient's street address")
+        print("\nPlease enter the recipient's street address:")
         print("Enter apartment number if aplicable")
         streetAddress = Input.text(blankError.format("Street Address"))
-        print("\nPlease enter the recipient's 5-digit zip code")
+        print("\nPlease enter the recipient's 5-digit zip code:")
         zipCode = Input.numeric(zipCodeError, 5, 5)
         print("\nPlease place the package in the locker")
-        print("Enter a text as a package. It's just a simulation!")
+        print("Enter a text as a package:\nIt's just a simulation!")
         package = Input.text(packageTextError)
         pickUpCode = parcel.drop_off(firstName, lastName, streetAddress, zipCode, package)
         print("\nThe recipient will need the code below to to pickup the package.\n")

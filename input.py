@@ -6,12 +6,15 @@ class Input:
                 value = int(input())
             except ValueError or TypeError:
                 print(errorMessage)
-            else: break
-        if minDigit != None and len(str(value)) < minDigit:
-            print(errorMessage)
-        elif maxDigit != None and len(str(value)) > maxDigit:
-            print(errorMessage)
-        else: return value
+                continue
+            if minDigit != None and len(str(value)) < minDigit:
+                print(errorMessage)
+                continue
+            elif maxDigit != None and len(str(value)) > maxDigit:
+                print(errorMessage)
+                continue
+            else:
+                return value
 
     @classmethod
     def text(cls, errorMessage:str):
