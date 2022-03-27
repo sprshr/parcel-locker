@@ -53,8 +53,6 @@ class Locker:
 
     def drop_off(self, first, last, address, zipCode, item):
         zipCode = str(zipCode)
-        dt = datetime.datetime.now()
-        dateDroppedOff = dt.strftime("%A %B %d, %Y")
         digit = 0
         pickUpCode = ""
         while digit < 5:
@@ -83,18 +81,24 @@ class Locker:
 
     def pick_up(self, pickUpCode):
         pickUpCode = str(pickUpCode)
-        with self.conn:
-            self.cursor.execute(f"SELECT * FROM locker_log WHERE pickUpCode = {pickUpCode}")
-            results = self.cursor.fetchone()
-        dictResults = {}
-        index = 0
-        for header in Locker.columnHeaders:
-            dictResults[header] = results[index]
-            index += 1
-        if dictResults['pickedUp'] == 'False':
+        try:
             with self.conn:
-                self.cursor.execute(f"UPDATE locker_log SET pickedUp = 'True' WHERE pickUpCode = {pickUpCode}")
-                self.cursor.execute(f"UPDATE locker_log SET datePickedUp = '{Locker.get_date()}' WHERE pickUpCode = {pickUpCode}")
-                self.cursor.execute(f"UPDATE locker_log SET timePickedUp = '{Locker.get_time()}' WHERE pickUpCode = {pickUpCode}")
+                self.cursor.execute(f"SELECT * FROM locker_log WHERE pickUpCode = {pickUpCode}")
+                results = self.cursor.fetchone()
+        except sq.OperationalError:
+            results = None
+        if results != None:
+            dictResults = {}
+            index = 0
+            for header in Locker.columnHeaders:
+                dictResults[header] = results[index]
+                index += 1
+            if dictResults['pickedUp'] == 'False':
+                with self.conn:
+                    self.cursor.execute(f"UPDATE locker_log SET pickedUp = 'True' WHERE pickUpCode = {pickUpCode}")
+                    self.cursor.execute(f"UPDATE locker_log SET datePickedUp = '{Locker.get_date()}' WHERE pickUpCode = {pickUpCode}")
+                    self.cursor.execute(f"UPDATE locker_log SET timePickedUp = '{Locker.get_time()}' WHERE pickUpCode = {pickUpCode}")
+            return dictResults
+        else:
+            return False
         self.conn.close()
-        return dictResults
