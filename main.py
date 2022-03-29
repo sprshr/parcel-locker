@@ -15,7 +15,7 @@ asciiArt = r"""
                                                                                          
                                                                                          
 """
-entryCodeError = "\nPlease enter your 5 digit specified code:\nCouriers! Enter your assigned code to drop off packages"
+entryCodeError = "\nPlease try again!\nEnter your 5 digit specified code:\nCouriers! Enter your assigned code to drop off packages"
 zipCodeError = "\nPlease enter a valid 5 digit zip Code:"
 blankError = "{} cannot be blank.\nPlease enter a valid {}:"
 packageTextError = "Please enter a text representing the package:"
