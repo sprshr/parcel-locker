@@ -104,7 +104,6 @@ class Locker:
                     self.cursor.execute(f"UPDATE locker_log SET datePickedUp = '{Locker.get_date()}' WHERE pickUpCode = {pickUpCode}")
                     self.cursor.execute(f"UPDATE locker_log SET timePickedUp = '{Locker.get_time()}' WHERE pickUpCode = {pickUpCode}")
                 message = f"<b>Package Picked up</b>\non {Locker.get_date()} at {Locker.get_time()}\nPickup Code {dictResults['pickUpCode']}"
-                print(message)
                 Locker.bot.send_message(Locker.channelID, message)
             return dictResults
         else:
