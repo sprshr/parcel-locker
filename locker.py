@@ -80,7 +80,7 @@ class Locker:
         #     self.cursor.execute("SELECT * FROM locker_log")
         #     print(self.cursor.fetchall())
         self.conn.close()
-        message =f"<b>Package Dropped off</b>\nfor {first} {last}\non {Locker.get_date()} at {Locker.get_time()}\nby {self.courier}\npickup code: <b>{pickUpCode}</b>\nPlease report to Parcel Locker for pickup.\nThank you"    
+        message =f"<b>Package Dropped off</b>\nfor {first} {last}\non {Locker.get_date()} at {Locker.get_time()}\nby {self.courier}\npickup code: <b>{pickUpCode}</b>\nPlease pickup your package from Parcel Locker.\nThank you"    
         Locker.bot.send_message(Locker.channelID, message)
         return pickUpCode
 
