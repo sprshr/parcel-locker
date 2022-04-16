@@ -1,10 +1,11 @@
 import sqlite3 as sq
 import datetime
+import telegram
 from os import getenv
 from random import randint
-import telegram
+from dotenv import load_dotenv
 
-
+load_dotenv()
 class Locker:
     couriers = {"FedEx": 11111, "UPS": 22222, "USPS": 33333}
     exists = False
@@ -12,9 +13,9 @@ class Locker:
     columnHeaders = ("firstName", "lastName", "streetAddress", "zipCode",
                         "courier", "dateDroppedOff", "timeDroppedOff",
                         "pickUpCode", "item", "pickedUp", "datePickedUp", "timePickedUp")
-    botAPItoken = getenv('botApiToken')
+    botApiToken = getenv('botApiToken')
     channelID = "@parcelLocker"
-    bot = telegram.Bot(botAPItoken)
+    bot = telegram.Bot(botApiToken)
     @classmethod
     def get_date(cls):
         dt = datetime.datetime.now()
