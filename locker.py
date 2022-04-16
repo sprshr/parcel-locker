@@ -6,6 +6,7 @@ from random import randint
 from dotenv import load_dotenv
 
 load_dotenv()
+
 class Locker:
     couriers = {"FedEx": 11111, "UPS": 22222, "USPS": 33333}
     exists = False
@@ -16,6 +17,7 @@ class Locker:
     botApiToken = getenv('botApiToken')
     channelID = "@parcelLocker"
     bot = telegram.Bot(botApiToken)
+    
     @classmethod
     def get_date(cls):
         dt = datetime.datetime.now()
