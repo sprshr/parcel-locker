@@ -6,5 +6,5 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-python@v3.0.0
-    - run: python3 -m pip install -r requiremets.txt
+    - run: python3 -m pip install -r requirements.txt
     - run: python3 test.py
