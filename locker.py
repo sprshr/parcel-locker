@@ -1,5 +1,6 @@
 import sqlite3 as sq
 import datetime
+from os import getenv
 from random import randint
 import telegram
 
@@ -11,7 +12,7 @@ class Locker:
     columnHeaders = ("firstName", "lastName", "streetAddress", "zipCode",
                         "courier", "dateDroppedOff", "timeDroppedOff",
                         "pickUpCode", "item", "pickedUp", "datePickedUp", "timePickedUp")
-    botAPItoken = "5282147545:AAGHHXwAgbfq7LY0v77PdVLrIZ-aso20BjA"
+    botAPItoken = getenv('botApiToken')
     channelID = "@parcelLocker"
     bot = telegram.Bot(botAPItoken)
     @classmethod
