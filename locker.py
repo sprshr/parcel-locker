@@ -1,7 +1,11 @@
 import sqlite3 as sq
 import datetime
+import telegram
+from os import getenv
 from random import randint
+from dotenv import load_dotenv
 
+load_dotenv()
 
 class Locker:
     couriers = {"FedEx": 11111, "UPS": 22222, "USPS": 33333}
@@ -10,7 +14,10 @@ class Locker:
     columnHeaders = ("firstName", "lastName", "streetAddress", "zipCode",
                         "courier", "dateDroppedOff", "timeDroppedOff",
                         "pickUpCode", "item", "pickedUp", "datePickedUp", "timePickedUp")
-
+    botApiToken = getenv('botApiToken')
+    channelID = "@parcelLocker"
+    bot = telegram.Bot(botApiToken)
+    
     @classmethod
     def get_date(cls):
         dt = datetime.datetime.now()
@@ -77,6 +84,8 @@ class Locker:
         #     self.cursor.execute("SELECT * FROM locker_log")
         #     print(self.cursor.fetchall())
         self.conn.close()
+        message =f"<b>Package Dropped off</b>\nfor {first} {last}\non {Locker.get_date()} at {Locker.get_time()}\nby {self.courier}\npickup code: <b>{pickUpCode}</b>\nPlease pickup your package from Parcel Locker.\nThank you"    
+        Locker.bot.send_message(Locker.channelID, message)
         return pickUpCode
 
     def pick_up(self, pickUpCode):
@@ -98,6 +107,8 @@ class Locker:
                     self.cursor.execute(f"UPDATE locker_log SET pickedUp = 'True' WHERE pickUpCode = {pickUpCode}")
                     self.cursor.execute(f"UPDATE locker_log SET datePickedUp = '{Locker.get_date()}' WHERE pickUpCode = {pickUpCode}")
                     self.cursor.execute(f"UPDATE locker_log SET timePickedUp = '{Locker.get_time()}' WHERE pickUpCode = {pickUpCode}")
+                message = f"<b>Package Picked up</b>\non {Locker.get_date()} at {Locker.get_time()}\nPickup Code {dictResults['pickUpCode']}"
+                Locker.bot.send_message(Locker.channelID, message)
             return dictResults
         else:
             return False
