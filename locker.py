@@ -63,7 +63,7 @@ class Locker:
         digit = 0
         pickUpCode = ""
         while digit < 5:
-            pickUpCode += str(randint(0, 9))
+            pickUpCode += str(randint(1, 9))
             digit += 1
         with self.conn:
             self.cursor.execute(f"""INSERT INTO locker_log VALUES(
