@@ -40,7 +40,7 @@ while True:
         print("\nPlease enter the recipient's 5-digit zip code:")
         zipCode = Input.numeric(zipCodeError, 5, 5)
         print("\nPlease place the package in the locker")
-        print("Enter a text as a package:\nIt's just a simulation!")
+        print("Enter a piece of text as your package:\nIt's just a simulation!")
         package = Input.text(packageTextError)
         pickUpCode = parcel.drop_off(firstName, lastName, streetAddress, zipCode, package)
         print("\nThe recipient will need the code below to to pickup the package.\n")
