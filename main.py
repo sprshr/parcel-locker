@@ -43,7 +43,7 @@ while True:
         print("Enter a piece of text as your package:\nIt's just a simulation!")
         package = Input.text(packageTextError)
         pickUpCode = parcel.drop_off(firstName, lastName, streetAddress, zipCode, package)
-        print("\nThe recipient will need the code below to to pickup the package.\n")
+        print("\nThe recipient will need the code below to pickup the package.\n")
         print(pickUpCode)
         print("\nThank you for using Parcel Locker!")
         print("\nPress enter to return to Parcel Locker")
