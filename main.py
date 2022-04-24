@@ -59,7 +59,7 @@ while True:
             print("\nThank you for using Parcel Locker!")
             print("\nPress enter to return to Parcel Locker")
             input()
-        #if the code entered in associated with a package that has been picked up already.
+        #if the code entered is associated with a package that has been picked up already.
         elif package != False and package['pickedUp'] == 'True':
             print(f"\nThe package has already been picked up on {package['datePickedUp']} at {package['timePickedUp']}.")
             print("Thank you!")

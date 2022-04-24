@@ -51,7 +51,7 @@ class Locker:
             pass
         self.conn.commit()
 
-    #checks if if the package is to be dropped off or picked up
+    #checks if the package is to be dropped off or picked up
     def is_drop_off(self, courierCode):
         for key in self.couriers:
             if self.couriers[key] == courierCode:
