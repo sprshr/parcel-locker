@@ -70,16 +70,16 @@ class Locker:
             digit += 1
         with self.conn:
             self.cursor.execute(f"""INSERT INTO locker_log VALUES(
-                    '{first}',
-                    '{last}',
-                    '{address}',
-                    '{zipCode}',
-                    '{self.courier}',
-                    '{Locker.get_date()}',
-                    '{Locker.get_time()}',
-                    '{pickUpCode}',
-                    '{item}',
-                    'False',
+                    "{first}",
+                    "{last}",
+                    "{address}",
+                    "{zipCode}",
+                    "{self.courier}",
+                    "{Locker.get_date()}",
+                    "{Locker.get_time()}",
+                    "{pickUpCode}",
+                    "{item}",
+                    "False",
                     Null,
                     Null
                     )""")
