@@ -26,8 +26,8 @@ while True:
     print("\nPlease enter your code:")
     print("\nCouriers! Enter your assigned code to drop off packages\n")
     entryCode = Input.numeric(entryCodeError, 5, 5)
-    #returns if package is to be dropped off
     parcel = Locker()
+    # returns true if the code entered in associated with a courier
     if parcel.is_drop_off(entryCode):
         print(f"Hello {parcel.courier}!\n")
         print("Please enter the recipient's first name:")
@@ -35,7 +35,7 @@ while True:
         print("\nPlease enter the recipient's last name:")
         lastName = Input.text(blankError.format("Last name", "last name"))
         print("\nPlease enter the recipient's street address:")
-        print("Enter apartment number if aplicable")
+        print("Enter apartment number if applicable")
         streetAddress = Input.text(blankError.format("Street Address", "street address"))
         print("\nPlease enter the recipient's 5-digit zip code:")
         zipCode = Input.numeric(zipCodeError, 5, 5)
@@ -50,6 +50,7 @@ while True:
         input()
     else: 
         package = parcel.pick_up(entryCode)
+        # if the code entered if associated with a package that has not been picked up yet
         if package != False and package['pickedUp'] == 'False':
             print(f"\nPackage for {package['firstName']} {package['lastName']}")
             print(f"Package dropped off by {package['courier']} on {package['dateDroppedOff']} at {package['timeDroppedOff']}")
@@ -58,11 +59,13 @@ while True:
             print("\nThank you for using Parcel Locker!")
             print("\nPress enter to return to Parcel Locker")
             input()
+        #if the code entered in associated with a package that has been picked up already.
         elif package != False and package['pickedUp'] == 'True':
             print(f"\nThe package has already been picked up on {package['datePickedUp']} at {package['timePickedUp']}.")
             print("Thank you!")
             print("\nPress enter to return to the Parcel Locker")
             input()
+        #if there is no package associated with the code entered
         else:
             print(f"\nThere is no match for the code {entryCode}")
             print("Please try again.")

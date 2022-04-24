@@ -12,7 +12,4 @@ class Bot():
             'text' : message,
             'parse_mode' : "HTML"
         }
-        #print(telegramURL.format(token = self.token, method = "sendMessage"))
-        #print(pload)
         r = requests.post(telegramURL.format(token = self.token, method = "sendMessage"), data = pload)
-        #print(r.json)

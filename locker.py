@@ -9,11 +9,11 @@ load_dotenv()
 
 class Locker:
     couriers = {"FedEx": 11111, "UPS": 22222, "USPS": 33333}
-    exists = False
     databasePath = 'locker_log.db'
     columnHeaders = ("firstName", "lastName", "streetAddress", "zipCode",
                         "courier", "dateDroppedOff", "timeDroppedOff",
                         "pickUpCode", "item", "pickedUp", "datePickedUp", "timePickedUp")
+    # botApiToken must be stored in a separate .env file
     botApiToken = getenv('botApiToken')
     channelID = "@parcelLocker"
     bot = telegram.Bot(botApiToken)
@@ -31,6 +31,7 @@ class Locker:
     def __init__(self):
         self.conn = sq.connect(Locker.databasePath)
         self.cursor = self.conn.cursor()
+        # Initiates databases if does not exist
         try:
             self.cursor.execute('''CREATE TABLE locker_log(
                             firstName TEXT,
@@ -50,6 +51,7 @@ class Locker:
             pass
         self.conn.commit()
 
+    #checks if if the package is to be dropped off or picked up
     def is_drop_off(self, courierCode):
         for key in self.couriers:
             if self.couriers[key] == courierCode:
@@ -58,6 +60,7 @@ class Locker:
         else:
             return False
 
+    #Inserts drop off info into the database & sends a notification to the telegram channel
     def drop_off(self, first, last, address, zipCode, item):
         zipCode = str(zipCode)
         digit = 0
@@ -80,10 +83,8 @@ class Locker:
                     Null,
                     Null
                     )""")
-        # with self.conn:
-        #     self.cursor.execute("SELECT * FROM locker_log")
-        #     print(self.cursor.fetchall())
         self.conn.close()
+        ### only takes HTML for formatting
         message =f"<b>Package Dropped off</b>\nfor {first} {last}\non {Locker.get_date()} at {Locker.get_time()}\nby {self.courier}\npickup code: <b>{pickUpCode}</b>\nPlease pickup your package from Parcel Locker.\nThank you"    
         Locker.bot.send_message(Locker.channelID, message)
         return pickUpCode
@@ -96,6 +97,7 @@ class Locker:
                 results = self.cursor.fetchone()
         except sq.OperationalError:
             results = None
+        #if there is a package pending for the code entered
         if results != None:
             dictResults = {}
             index = 0
@@ -110,6 +112,7 @@ class Locker:
                 message = f"<b>Package Picked up</b>\non {Locker.get_date()} at {Locker.get_time()}\nPickup Code {dictResults['pickUpCode']}"
                 Locker.bot.send_message(Locker.channelID, message)
             return dictResults
+        #if there is no package for the code entered
         else:
             return False
         self.conn.close()
